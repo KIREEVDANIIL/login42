@@ -1,5 +1,4 @@
 <div class="space-y-6">
-    <!-- Сообщения -->
     @session('ok')
         <div class="p-4 bg-green-50 text-green-700 rounded-lg border border-green-200">
             {{ session('ok') }}
@@ -12,7 +11,6 @@
         </div>
     @endsession
 
-    <!-- Кнопка добавления -->
     <div>
         <button wire:click='toggleActive' 
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2">
@@ -23,7 +21,6 @@
         </button>
     </div>
 
-    <!-- Форма добавления (если активно) -->
     @if ($is_active)
         <div class="bg-white rounded-lg border border-gray-200 p-6">
             <h2 class="text-xl font-semibold text-gray-900 mb-6">Добавить страну</h2>

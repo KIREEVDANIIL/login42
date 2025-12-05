@@ -1,5 +1,4 @@
 <div class="space-y-6">
-    <!-- Заголовок и поиск -->
     <div class="flex items-center justify-between">
         <h2 class="text-xl font-semibold text-gray-900">Страны</h2>
         
@@ -11,7 +10,6 @@
         </div>
     </div>
 
-    <!-- Таблица -->
     <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
         @if (count($countries) < 1)
             <div class="text-center py-12">
@@ -75,7 +73,6 @@
                 </table>
             </div>
             
-            <!-- Пагинация -->
             <div class="px-6 py-4 border-t border-gray-200">
                 {{ $countries->links() }}
             </div>

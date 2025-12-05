@@ -21,6 +21,16 @@ class AddProduct extends Component
     public $image;
     public $count = 0;
     public $is_active = false;
+    public $categories = [];
+    public $countries = [];
+
+     public function mount()
+    {
+        $this->categories = Category::all();
+        $this->countries = Country::all();
+    }
+    
+
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -74,7 +84,7 @@ class AddProduct extends Component
 
         session()->flash('success', 'Product created successfully');
         $this->resetForm();
-        $this->showForm = false; // Скрыть форму после сохранения
+        $this->showForm = false;
     }
 
     public function getCategoriesProperty()
