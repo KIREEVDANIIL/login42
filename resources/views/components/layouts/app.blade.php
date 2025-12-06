@@ -1,56 +1,59 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'CopyStar' }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title ?? 'Магазин' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    @livewireStyles
 </head>
-<body class="bg-gray-50">
-    
+<body class="bg-gray-100">
+    <nav class="bg-white shadow mb-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <a href="{{ route('home') }}" class="text-xl font-bold text-blue-600">Shop</a>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600">Товары</a>
+                    <a href="{{ route('cart') }}" class="text-gray-700 hover:text-blue-600">Корзина</a>
+                    @auth
+                        <a href="{{ route('orders.index') }}" class="text-gray-700 hover:text-blue-600">Заказы</a>
+                        <span class="text-gray-700">{{ Auth::user()->name }}</span>
+
+                        @if(Auth::user()->is_admin)
+                            <a href="{{ route('admin.dashboard') }}" class="text-red-600 hover:text-red-800">Админ</a>
+                        @endif
+                        
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="text-gray-700 hover:text-blue-600">Выйти</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600">Войти</a>
+                        <a href="{{ route('register') }}" class="bg-blue-600 text-white px-3 py-1 rounded">Регистрация</a>
+                    @endauth
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
     @if(session('success'))
-        <div class="bg-green-100 p-3 text-center text-green-700">
-            {{ session('success') }}
+        <div class="container mx-auto px-4 mb-4">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                {{ session('success') }}
+            </div>
         </div>
     @endif
     
     @if(session('error'))
-        <div class="bg-red-100 p-3 text-center text-red-700">
-            {{ session('error') }}
+        <div class="container mx-auto px-4 mb-4">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                {{ session('error') }}
+            </div>
         </div>
     @endif
 
-    <header class="bg-white shadow-sm mb-6">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="text-xl font-bold text-blue-600">
-                CopyStar
-            </a>
-            
-            <div class="flex gap-4">
-                <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900">
-                    Dashboard
-                </a>
-                @auth
-                    <form method="POST" action="">
-                        @csrf
-                        <button type="submit" class="text-gray-600 hover:text-gray-900">
-                            Logout
-                        </button>
-                    </form>
-                @else
-                    <a href="" class="text-gray-600 hover:text-gray-900">
-                        Login
-                    </a>
-                @endauth
-            </div>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-4">
+    <main class="container mx-auto px-4 py-4">
         {{ $slot }}
     </main>
-
-    @livewireScripts
 </body>
 </html>
